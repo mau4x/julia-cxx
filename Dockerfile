@@ -37,7 +37,7 @@ RUN apt-get update && \
     python \
     python-dev \
     python-pip && \
-    apt-get clean \
+    apt-get clean && \
     git clone https://github.com/JuliaLang/julia.git /julia && \
     cd /julia && \
     git checkout $JULIA_VERSION && \
