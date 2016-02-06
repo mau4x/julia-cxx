@@ -1,0 +1,9 @@
+override USECLANG=1
+
+override LLVM_VER=3.7.1
+override LLVM_ASSERTIONS=1
+override BUILD_LLVM_CLANG=1
+override USE_LLVM_SHLIB=1
+
+override BUILD_LLDB=0
+override LLDB_DISABLE_PYTHON=1
