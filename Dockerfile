@@ -4,6 +4,7 @@ MAINTAINER Ryuichi YAMAMOTO
 
 COPY Make.user /tmp/
 
+ENV LLVM_VER 3.7.1
 ENV JULIA_VERSION dbdf28cfe80213271a0ed612a9812627a76de32b
 ENV PATH /julia/usr/bin:$PATH
 
@@ -42,11 +43,15 @@ RUN git clone https://github.com/JuliaLang/julia.git /julia && \
     cat Make.user && \
     make -j4 && \
     rm -rf /julia/usr-staging && \
-    mkdir -p /tmp/llvm && \
-    mv /julia/deps/srccache/llvm-3.7.1/include /tmp/llvm/ && \
+    mkdir -p /tmp/srccache && \
+    mv /julia/deps/srccache/llvm-$(LLVM_VER) /tmp/srccache/ && \
+    mv /julia/deps/llvm-$(LLVM_VER) /tmp/
+    mv /julia/deps/Versions.make /tmp/
     rm -rf /julia/deps && \
-    mkdir -p /julia/deps/srccache/llvm-3.7.1 && \
-    mv /tmp/llvm/include /julia/deps/srccache/llvm-3.7.1/
+    mkdir -p /julia/deps/srccache && \
+    mv /tmp/srccache/llvm-$(LLVM_VER) /julia/deps/srccache/ && \
+    mv /tmp/llvm-$(LLVM_VER) /julia/deps/ && \
+    mv /tmp/Versions.make /julia/deps/
 
 RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/r9y9/Cxx.jl")' && \
     /julia/usr/bin/julia -e 'Pkg.build("Cxx")'
