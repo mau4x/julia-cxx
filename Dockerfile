@@ -20,9 +20,6 @@ RUN apt-get update && \
     cmake \
     wget \
     curl \
-    vim \
-    emacs \
-    tmux \
     pkg-config \
     build-essential \
     clang \
@@ -35,17 +32,21 @@ RUN apt-get update && \
     libedit-dev \
     libncurses5-dev \
     python \
-    python-dev \
-    python-pip && \
-    apt-get clean && \
-    git clone https://github.com/JuliaLang/julia.git /julia && \
+    python-dev && \
+    apt-get clean
+
+RUN git clone https://github.com/JuliaLang/julia.git /julia && \
     cd /julia && \
     git checkout $JULIA_VERSION && \
     cp /tmp/Make.user Make.user && \
     cat Make.user && \
     make -j4 && \
     rm -rf /julia/usr-staging && \
-    rm -rf /julia/deps
+    mkdir -p /tmp/llvm && \
+    mv /julia/deps/srccache/llvm-3.7.1/include /tmp/llvm/ && \
+    rm -rf /julia/deps && \
+    mkdir -p /julia/deps/srccache/llvm-3.7.1 && \
+    mv /tmp/llvm/include /julia/deps/srccache/llvm-3.7.1/
 
-RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/r9y9/Cxx.jl")'
-RUN /julia/usr/bin/julia -e 'Pkg.build("Cxx")'
+RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/r9y9/Cxx.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.build("Cxx")'
