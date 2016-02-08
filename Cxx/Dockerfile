@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-MAINTAINER Ryuichi YAMAMOTO
+MAINTAINER Ryuichi YAMAMOTO <zryuichi@gmail.com>
 
 COPY Make.user /tmp/
 
