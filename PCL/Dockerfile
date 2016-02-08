@@ -1,5 +1,8 @@
 FROM r9y9/julia-cxx:latest
 
+ENV CC /usr/bin/clang
+ENV CXX /usr/bin/clang++
+
 RUN apt-get update && \
     apt-get install -y \
     mpi-default-dev \
