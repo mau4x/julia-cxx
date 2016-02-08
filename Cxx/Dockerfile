@@ -41,7 +41,7 @@ RUN git clone https://github.com/JuliaLang/julia.git /julia && \
     git checkout $JULIA_VERSION && \
     cp /tmp/Make.user Make.user && \
     cat Make.user && \
-    make -j2 && \
+    MARCH=x86-64 make -j2 && \
     rm -rf /julia/usr-staging && \
     mkdir -p /tmp/srccache && \
     mv /julia/deps/srccache/llvm-$LLVM_VERSION /tmp/srccache/ && \
