@@ -45,12 +45,10 @@ RUN git clone https://github.com/JuliaLang/julia.git /julia && \
     rm -rf /julia/usr-staging && \
     mkdir -p /tmp/srccache && \
     mv /julia/deps/srccache/llvm-$LLVM_VERSION /tmp/srccache/ && \
-    mv /julia/deps/llvm-$LLVM_VERSION /tmp/
     mv /julia/deps/Versions.make /tmp/
     rm -rf /julia/deps && \
     mkdir -p /julia/deps/srccache && \
     mv /tmp/srccache/llvm-$LLVM_VERSION /julia/deps/srccache/ && \
-    mv /tmp/llvm-$LLVM_VERSION /julia/deps/ && \
     mv /tmp/Versions.make /julia/deps/
 
 RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/r9y9/Cxx.jl")' && \
