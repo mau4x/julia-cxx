@@ -41,11 +41,11 @@ RUN git clone https://github.com/JuliaLang/julia.git /julia && \
     git checkout $JULIA_VERSION && \
     cp /tmp/Make.user Make.user && \
     cat Make.user && \
-    make -j4 && \
+    make -j2 && \
     rm -rf /julia/usr-staging && \
     mkdir -p /tmp/srccache && \
     mv /julia/deps/srccache/llvm-$LLVM_VERSION /tmp/srccache/ && \
-    mv /julia/deps/Versions.make /tmp/
+    mv /julia/deps/Versions.make /tmp/ && \
     rm -rf /julia/deps && \
     mkdir -p /julia/deps/srccache && \
     mv /tmp/srccache/llvm-$LLVM_VERSION /julia/deps/srccache/ && \
