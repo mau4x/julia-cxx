@@ -53,6 +53,6 @@ RUN git clone https://github.com/JuliaLang/julia.git /julia && \
     mv /tmp/Versions.make /julia/deps/
 
 RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/Keno/Cxx.jl")' && \
-    cd $(/julia/usr/bin/julia -e 'print(Pkg.dir("Cxx"))') && \
+    cd `/julia/usr/bin/julia -e 'print(Pkg.dir("Cxx"))'` && \
     git checkout $CXX_VERSION && \
-    /julia/usr/bin/julia -e 'Pkg.build("Cxx")' && \
+    /julia/usr/bin/julia -e 'Pkg.build("Cxx")'
