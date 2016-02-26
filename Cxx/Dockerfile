@@ -5,7 +5,8 @@ MAINTAINER Ryuichi YAMAMOTO <zryuichi@gmail.com>
 COPY Make.user /tmp/
 
 ENV LLVM_VERSION 3.7.1
-ENV JULIA_VERSION dbdf28cfe80213271a0ed612a9812627a76de32b
+ENV JULIA_VERSION 5e44ea20b88ad3e6d32d11be86265b1d83477587
+ENV CXX_VERSION 153c52660d1cbb0b449fb486d5e480d06b35bf17
 ENV PATH /julia/usr/bin:$PATH
 
 RUN apt-get update && \
@@ -51,5 +52,7 @@ RUN git clone https://github.com/JuliaLang/julia.git /julia && \
     mv /tmp/srccache/llvm-$LLVM_VERSION /julia/deps/srccache/ && \
     mv /tmp/Versions.make /julia/deps/
 
-RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/r9y9/Cxx.jl")' && \
-    /julia/usr/bin/julia -e 'Pkg.build("Cxx")'
+RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/Keno/Cxx.jl")' && \
+    cd $(/julia/usr/bin/julia -e 'print(Pkg.dir("Cxx"))') && \
+    git checkout $CXX_VERSION && \
+    /julia/usr/bin/julia -e 'Pkg.build("Cxx")' && \
