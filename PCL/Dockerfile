@@ -18,7 +18,9 @@ RUN apt-get update && \
     libxi-dev \
     libvtk6-dev \
     libvtk6 && \
-    apt-get clean
+    apt-get clean && \
+    update-alternatives --install /usr/bin/cc cc /usr/bin/clang-3.6 100 && \
+    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-3.6 100
 
 ENV BOOST_INCLUDE_DIR /usr/include
 ENV EIGEN_INCLUDE_DIR /usr/include/eigen3
