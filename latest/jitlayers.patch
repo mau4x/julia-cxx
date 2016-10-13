@@ -1,0 +1,13 @@
+diff --git src/jitlayers.cpp src/jitlayers.cpp
+index e303363..1bc7a5c 100644
+--- src/jitlayers.cpp
++++ src/jitlayers.cpp
+@@ -496,7 +496,7 @@ void JuliaOJIT::addModule(std::unique_ptr<Module> M)
+             else if (!(isIntrinsicFunction(F) ||
+                        findUnmangledSymbol(F->getName()) ||
+                        SectionMemoryManager::getSymbolAddressInProcess(
+-                           F->getName()))) {
++                           getMangledName(F->getName())))) {
+                 std::cerr << "FATAL ERROR: "
+                           << "Symbol \"" << F->getName().str() << "\""
+                           << "not found";
