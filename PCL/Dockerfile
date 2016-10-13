@@ -18,14 +18,33 @@ RUN apt-get update && \
     libxi-dev \
     libvtk6-dev \
     libvtk6 && \
-    apt-get clean && \
-    update-alternatives --install /usr/bin/cc cc /usr/bin/clang-3.6 100 && \
-    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-3.6 100
+    apt-get clean
 
 ENV BOOST_INCLUDE_DIR /usr/include
 ENV EIGEN_INCLUDE_DIR /usr/include/eigen3
 ENV FLANN_INCLUDE_DIR /usr/include
 ENV VTK_INCLUDE_DIR_PARENT /usr/include
+ENV CC gcc-6
+ENV CXX g++-6
+ENV PCLJL_RUN_VISUALIZATION_TESTS 0
 
-RUN /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/r9y9/PCL.jl")' && \
-    /julia/usr/bin/julia -e 'Pkg.build("PCL")'
+RUN /julia/usr/bin/julia -e 'Pkg.add("BinDeps");Pkg.add("DocStringExtensions")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/LibPCL.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLCommon.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLFeatures.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLFilters.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLIO.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLKDTree.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLKeyPoints.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLOctree.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLRecognition.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLRegistration.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLSampleConsensus.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLSearch.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLSegmentation.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLSurface.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLTracking.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCLVisualization.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.clone("https://github.com/JuliaPCL/PCL.jl")' && \
+    /julia/usr/bin/julia -e 'Pkg.build("LibPCL")' && \
+    /julia/usr/bin/julia -e 'Pkg.test("PCL")'
