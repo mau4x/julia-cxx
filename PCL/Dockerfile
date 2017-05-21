@@ -1,4 +1,4 @@
-FROM r9y9/julia-cxx:ubuntu14.04
+FROM r9y9/julia-cxx:ubuntu16.04
 
 MAINTAINER Ryuichi YAMAMOTO <zryuichi@gmail.com>
 
@@ -16,8 +16,8 @@ RUN apt-get update && \
     freeglut3-dev \
     libxmu-dev \
     libxi-dev \
-    libvtk6-dev \
-    libvtk6 && \
+    libproj-dev \
+    libvtk6-dev && \
     apt-get clean
 
 ENV BOOST_INCLUDE_DIR /usr/include
