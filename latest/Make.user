@@ -1,7 +1,7 @@
 override CC=gcc-6
 override CXX=g++-6
 override LLVM_USE_CMAKE=1
-override LLVM_VER=3.8.1
+override LLVM_VER=3.9.1
 override LLVM_ASSERTIONS=1
 override BUILD_LLVM_CLANG=1
 override USE_LLVM_SHLIB=1
